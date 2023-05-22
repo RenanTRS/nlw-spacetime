@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-interface TitleProps {
+export interface TitleProps {
   children: ReactNode
 }
 export function Title({ children }: TitleProps) {
