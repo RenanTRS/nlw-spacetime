@@ -15,7 +15,7 @@ const textStyles = cva('font-sans text-gray-100', {
   },
 })
 
-interface TextProps extends VariantProps<typeof textStyles> {
+export interface TextProps extends VariantProps<typeof textStyles> {
   children: ReactNode
   className?: string
 }
