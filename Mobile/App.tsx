@@ -9,6 +9,8 @@ import {
 
 import { BaiJamjuree_700Bold } from '@expo-google-fonts/bai-jamjuree'
 
+import bgBlur from './src/assets/bg-blur.png'
+
 export default function App() {
   const [hasLoadedFonts] = useFonts({
     Roboto_400Regular,
