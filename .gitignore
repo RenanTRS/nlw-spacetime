@@ -1,2 +1,3 @@
 */node_modules
 server/prisma/dev.db
+server/prisma/schema.prisma
