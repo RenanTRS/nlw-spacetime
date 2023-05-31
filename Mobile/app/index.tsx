@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
+import { useRouter } from 'expo-router'
 import { api } from '../src/lib/api'
 import { makeRedirectUri, useAuthRequest } from 'expo-auth-session'
 import { styled } from 'nativewind'
@@ -19,6 +20,8 @@ import Stripes from '../src/assets/stripes.svg'
 const StyledStripes = styled(Stripes)
 
 export default function App() {
+  const router = useRouter()
+
   const [hasLoadedFonts] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,
@@ -43,6 +46,16 @@ export default function App() {
     discovery,
   )
 
+  const handleGithubOAuthCode = async (code: string) => {
+    const resp = await api.post('/register', { code })
+    const { token } = resp.data
+    console.log(token)
+
+    await SecureStore.setItemAsync('token', token)
+
+    router.push('/memories')
+  }
+
   useEffect(() => {
     /* //descobrir o ip
     console.log(
@@ -53,19 +66,7 @@ export default function App() {
     if (response?.type === 'success') {
       const { code } = response.params
 
-      api
-        .post('/register', {
-          code,
-        })
-        .then((response) => {
-          const { token } = response.data
-
-          console.log(token)
-          SecureStore.setItemAsync('token', token)
-        })
-        .catch((err) => {
-          console.error(err)
-        })
+      handleGithubOAuthCode(code)
     }
   }, [response])
 
