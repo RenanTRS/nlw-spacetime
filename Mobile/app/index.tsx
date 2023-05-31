@@ -1,7 +1,10 @@
+import { useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
-import { styled } from 'nativewind'
 import * as SecureStore from 'expo-secure-store'
+import { api } from '../src/lib/api'
+import { makeRedirectUri, useAuthRequest } from 'expo-auth-session'
+import { styled } from 'nativewind'
 
 import {
   useFonts,
@@ -10,12 +13,9 @@ import {
 } from '@expo-google-fonts/roboto'
 import { BaiJamjuree_700Bold } from '@expo-google-fonts/bai-jamjuree'
 
-import bgBlur from './src/assets/bg-blur.png'
-import NLWLogo from './src/assets/nlw-spacetime-logo.svg'
-import Stripes from './src/assets/stripes.svg'
-import { makeRedirectUri, useAuthRequest } from 'expo-auth-session'
-import { useEffect } from 'react'
-import { api } from './src/lib/api'
+import bgBlur from '../src/assets/bg-blur.png'
+import NLWLogo from '../src/assets/nlw-spacetime-logo.svg'
+import Stripes from '../src/assets/stripes.svg'
 const StyledStripes = styled(Stripes)
 
 export default function App() {
@@ -32,7 +32,7 @@ export default function App() {
       'https://github.com/settings/connections/applications/f43931d2d7ec7cf02dd5',
   }
 
-  const [request, response, signInWithGithub] = useAuthRequest(
+  const [, response, signInWithGithub] = useAuthRequest(
     {
       clientId: 'f43931d2d7ec7cf02dd5',
       scopes: ['identity'],
